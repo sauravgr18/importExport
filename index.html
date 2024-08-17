@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PT. Naval Overseas</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f0f4f8;
+        color: #333;
+      }
+      header {
+        background-color: #ffffff;
+        padding: 20px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .logo {
+        width: 180px;
+      }
+      .search-bar {
+        display: flex;
+      }
+      .search-bar input {
+        padding: 10px;
+        border: 2px solid #ddd;
+        border-radius: 4px;
+        margin-right: 10px;
+        outline: none;
+        transition: border-color 0.3s;
+      }
+      .search-bar input:focus {
+        border-color: #3c8d7c;
+      }
+      .search-bar button {
+        background-color: #3c8d7c;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .search-bar button:hover {
+        background-color: #2e6f5e;
+      }
+      nav {
+        background-color: #3c8d7c;
+        padding: 10px 0;
+      }
+      nav ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        position: relative;
+      }
+      nav ul li {
+        margin: 0 15px;
+        position: relative;
+      }
+      nav ul li a {
+        color: #ffffff;
+        text-decoration: none;
+        display: block;
+        padding: 10px 15px;
+        font-weight: 600;
+        border-radius: 4px;
+        transition: background-color 0.3s, transform 0.3s;
+      }
+      nav ul li a:hover,
+      nav ul li a:focus {
+        background-color: #2e6f5e;
+        transform: scale(1.05);
+      }
+      nav ul li ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #3c8d7c;
+        min-width: 200px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      nav ul li:hover ul {
+        display: block;
+        opacity: 1;
+      }
+      nav ul li ul li {
+        margin: 0;
+      }
+      nav ul li ul li a {
+        padding: 10px 15px;
+        white-space: nowrap;
+      }
+      nav ul li ul li a:hover {
+        background-color: #2e6f5e;
+      }
+      .main-content {
+        padding: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .slideshow-container {
+        position: relative;
+        max-width: 100%;
+        margin: 20px 0;
+        overflow: hidden;
+        border-radius: 8px;
+        height: 300px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .slide {
+        display: none;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+      .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: opacity 1s ease-in-out;
+      }
+      .features {
+        display: flex;
+        justify-content: space-between;
+        padding: 40px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        margin: 20px 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .feature {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        margin-right: 20px;
+        transition: transform 0.3s;
+      }
+      .feature:last-child {
+        margin-right: 0;
+      }
+      .feature:hover {
+        transform: scale(1.05);
+      }
+      .feature-icon {
+        font-size: 24px;
+        margin-right: 15px;
+        color: #3c8d7c;
+        transition: color 0.3s;
+      }
+      .feature-text {
+        display: flex;
+        flex-direction: column;
+      }
+      .feature-title {
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: #333;
+      }
+      .feature-description {
+        color: #666;
+        font-size: 14px;
+      }
+      .news-section {
+        display: flex;
+        justify-content: space-between;
+        margin: 40px 0;
+      }
+      .news-item {
+        width: 32%;
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s;
+      }
+      .news-item img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.3s;
+      }
+      .news-item:hover img {
+        transform: scale(1.1);
+      }
+      .news-item p {
+        padding: 15px;
+        margin: 0;
+      }
+      .news-item a {
+        display: block;
+        padding: 10px;
+        text-align: center;
+        background-color: #3c8d7c;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 0 0 8px 8px;
+        transition: background-color 0.3s;
+      }
+      .news-item a:hover {
+        background-color: #2e6f5e;
+      }
+      .testimonials {
+        background-color: #ffffff;
+        padding: 40px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .testimonial {
+        background: #f8f8f8;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        width: 30%;
+        display: flex;
+        align-items: center;
+        transition: box-shadow 0.3s;
+      }
+      .testimonial:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+      .testimonial img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 20px;
+        transition: transform 0.3s;
+      }
+      .testimonial p {
+        margin: 0;
+      }
+      .testimonial .client-name {
+        font-weight: 600;
+      }
+      .testimonial .client-feedback {
+        color: #555;
+      }
+      .products {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+      .product {
+        width: 18%;
+        text-align: center;
+        margin-bottom: 20px;
+        transition: transform 0.3s;
+      }
+      .product img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .product p {
+        margin-top: 10px;
+        font-weight: 600;
+      }
+      .product:hover {
+        transform: scale(1.05);
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <img src="logo.png" alt="PT. Naval Overseas" class="logo" />
+      <div class="search-bar">
+        <input type="text" placeholder="Search" />
+        <button>Search</button>
+      </div>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li>
+          <a href="#">Products</a>
+          <ul>
+            <li><a href="oleo-pine-resin.html">Oleo Pine Resin</a></li>
+            <li><a href="gum-rosin.html">Gum Rosin</a></li>
+            <li><a href="gum-benjamin.html">Gum Benjamin</a></li>
+            <li><a href="gum-copal.html">Gum Copal</a></li>
+            <li><a href="gum-damar.html">Gum Damar</a></li>
+            <li><a href="damar-batu.html">Damar Batu</a></li>
+            <li><a href="cassia-vera.html">Cassia Vera</a></li>
+            <li><a href="cloves.html">Cloves</a></li>
+            <li><a href="pepper.html">Pepper</a></li>
+            <li>
+              <a href="turpentine-oil.html">Turpentine Oil / Alpha Pinene</a>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#">Liase With Us</a></li>
+        <li><a href="#">Enquiry</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </nav>
+
+    <div class="main-content">
+      <h1>Welcome to PT. Naval Overseas</h1>
+      <p>
+        PT. Naval Overseas is a well-known and reputable manufacturer, processor
+        and exporter of Indonesian natural products such as oleo pine resin, gum
+        rosin, gum copal, gum damar, gum benjamin, damar batu, turpentine and
+        spices such as cloves, pepper, Indonesian cinnamon (cassia vera). The
+        company was established in 2006 realizing the huge potential of natural
+        products in Indonesia. The company now exports globally to countries
+        like Abu Dhabi, China, Germany, Japan, Spain and the Indian
+        Sub-Continent. The Company sources its raw material from all over
+        Indonesia and has warehouses located in strategic locations where
+        cleaning, processing and quality control is done. It has offices in
+        Jakarta and Delhi. The Company's main emphasis is on Quality, Timely
+        delivery and Commitment. It understands its customers' every need by
+        providing products of premium quality at reasonable prices and stands
+        firmly behind each of its shipments. Today we are one of the most
+        trusted suppliers from Indonesia and we strive to provide our buyers
+        with premium products at reasonable prices.
+      </p>
+
+      <div class="slideshow-container">
+        <div class="slide">
+          <img src="gunrosin.png" alt="Gum Rosin" />
+        </div>
+        <div class="slide">
+          <img src="gum-benjamin.png" alt="Gum Benjamin" />
+        </div>
+      </div>
+
+      <div class="features">
+        <div class="feature">
+          <div class="feature-icon">
+            <i class="fas fa-truck"></i>
+          </div>
+          <div class="feature-text">
+            <span class="feature-title">Free Shipping</span>
+            <span class="feature-description"
+              >Free shipping on all your order</span
+            >
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">
+            <i class="fas fa-headset"></i>
+          </div>
+          <div class="feature-text">
+            <span class="feature-title">Customer Support 24/7</span>
+            <span class="feature-description">Instant access to Support</span>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">
+            <i class="fas fa-lock"></i>
+          </div>
+          <div class="feature-text">
+            <span class="feature-title">100% Secure Payment</span>
+            <span class="feature-description"
+              >We ensure your money is safe</span
+            >
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">
+            <i class="fas fa-undo"></i>
+          </div>
+          <div class="feature-text">
+            <span class="feature-title">Money-Back Guarantee</span>
+            <span class="feature-description"
+              >30 Days Money-Back Guarantee</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <h2>Latest News</h2>
+      <div class="news-section">
+        <div class="news-item">
+          <img src="news1.jpg" alt="News 1" />
+          <p>
+            New year, growth is expected to contract by a little above 1%,
+            analysts say
+          </p>
+          <a href="#">Read More</a>
+        </div>
+        <div class="news-item">
+          <img src="news1.jpg" alt="News 2" />
+          <p>Bitcoin rose by 15% in seven out of the last eight years.</p>
+          <a href="#">Read More</a>
+        </div>
+        <div class="news-item">
+          <img src="news1.jpg" alt="News 3" />
+          <p>
+            By 2024 India will have more than 300 million people in the fourth
+            largest in the world after China, India and the U.S.
+          </p>
+          <a href="#">Read More</a>
+        </div>
+      </div>
+
+      <h2>Client Testimonials</h2>
+      <div class="testimonials">
+        <div class="testimonial">
+          <img src="client-1.png" alt="Client 1" />
+          <div>
+            <p class="client-feedback">"Great service and products!"</p>
+            <p class="client-name">- Robert Fox</p>
+          </div>
+        </div>
+        <div class="testimonial">
+          <img src="client-1.png" alt="Client 2" />
+          <div>
+            <p class="client-feedback">
+              "Excellent quality and fast delivery."
+            </p>
+            <p class="client-name">- Dianne Russell</p>
+          </div>
+        </div>
+        <div class="testimonial">
+          <img src="client-1.png" alt="Client 3" />
+          <div>
+            <p class="client-feedback">"Highly recommended supplier."</p>
+            <p class="client-name">- Darlene Flores</p>
+          </div>
+        </div>
+      </div>
+
+      <h2>Featured Products</h2>
+      <div class="products">
+        <div class="product">
+          <img src="pr.png" alt="Gum Copal" />
+          <p>Gum Copal</p>
+        </div>
+        <div class="product">
+          <img src="pr.png" alt="Gum Rosin Grade" />
+          <p>Gum Rosin Grade</p>
+        </div>
+        <div class="product">
+          <img src="pr.png" alt="Pine Resin" />
+          <p>Pine Resin</p>
+        </div>
+        <div class="product">
+          <img src="pr.png" alt="Gum Damar" />
+          <p>Gum Damar</p>
+        </div>
+        <div class="product">
+          <img src="pr.png" alt="Damar Batu" />
+          <p>Damar Batu</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let slideIndex = 0;
+
+      function showSlides() {
+        const slides = document.querySelectorAll(".slide");
+        slides.forEach((slide) => {
+          slide.style.display = "none";
+        });
+        slideIndex++;
+        if (slideIndex > slides.length) {
+          slideIndex = 1;
+        }
+        slides[slideIndex - 1].style.display = "block";
+        setTimeout(showSlides, 3000); // Change image every 3 seconds
+      }
+
+      showSlides(); // Initialize the slideshow
+    </script>
+  </body>
+</html>
